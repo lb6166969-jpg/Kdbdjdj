@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CardsHub - Gift Cards Shop</title>
+</head>
+<body>
+
+<div id="gc-shop">
+  <style>
+    html,body{margin:0!important;padding:0!important;overflow:hidden!important;background:#f5b400!important;height:100%!important}
+    #navbar,#navbar-iframe,.Navbar,.navbar,iframe.blogger-iframe-colorize,header,.header,.header-outer,.header-inner,.tabs-outer,.sidebar,.sidebar-outer,footer,.footer,.footer-outer,.post-header,.post-footer,.post-title,.date-header,.post-share-buttons,.post-labels,.breadcrumbs,.blog-pager,.comments,#comments,.related-posts{display:none!important}
+    #gc-shop{--ink:#16120a;--gold:#f5b400;--gold-l:#ffd54a;position:fixed!important;top:0;left:0;right:0;bottom:0;width:100vw;height:100vh;height:100dvh;z-index:2147483647;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;font-family:Inter,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:linear-gradient(160deg,#ffd54a 0%,#f5b400 55%,#e9a400 100%);line-height:1.5;box-sizing:border-box;visibility:visible!important;display:block!important;padding:max(18px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(26px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left))}
+    #gc-shop *{box-sizing:border-box}
+    #gc-shop .gc-wrap{max-width:720px;margin:0 auto}
+    #gc-shop .hidden{display:none!important}
+    #gc-shop .center{text-align:center}
+    #gc-shop button,#gc-shop input,#gc-shop a{font-family:inherit}
+    #gc-shop button:focus-visible,#gc-shop input:focus-visible,#gc-shop a:focus-visible{outline:3px solid #fff;outline-offset:2px}
+    #gc-shop .buy{background:linear-gradient(180deg,var(--gold-l),var(--gold));color:var(--ink);border:0;border-radius:12px;padding:10px 20px;font-size:14px;font-weight:800;cursor:pointer;text-align:center;text-decoration:none;display:inline-block}
+    #gc-shop .buy:hover{filter:brightness(1.06)}
+    #gc-shop .ghost{background:transparent;border:1.5px solid var(--gold);color:var(--gold-l);border-radius:12px;padding:10px 16px;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;display:inline-block}
+    #gc-shop .actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+    #gc-shop .actions .buy,#gc-shop .actions .ghost{flex:1;padding:14px}
+    #gc-shop .box{background:var(--ink);color:#fff;border-radius:18px;padding:22px}
+    #gc-shop .box h2{font-family:"Playfair Display",Georgia,serif;margin:0 0 6px;color:var(--gold-l);font-size:26px}
+    #gc-shop .muted{color:#cdbf8a;font-size:14px;margin:4px 0}
+    #gc-shop label{display:block;font-size:13px;font-weight:700;margin:14px 0 6px;color:var(--gold-l)}
+    #gc-shop input[type=text]{width:100%;padding:13px;border:1.5px solid #3a3220;background:#241e10;color:#fff;border-radius:12px;font-size:16px}
+    #gc-shop .err{color:#ff8a80;font-size:13px;margin:8px 0 0;min-height:18px}
+    #gc-shop .brand{text-align:center;margin-bottom:18px}
+    #gc-shop .brand h2{font-family:"Playfair Display",Georgia,serif;font-size:32px;margin:0;letter-spacing:.3px;color:var(--ink)}
+    #gc-shop .brand p{margin:6px 0 0;font-size:14px;color:#4a3a00}
+    #gc-shop .tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;margin-bottom:8px}
+    #gc-shop .tab{flex:0 0 auto;border:0;background:rgba(22,18,10,.12);color:var(--ink);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer}
+    #gc-shop .tab[aria-selected="true"]{background:var(--ink);color:var(--gold-l);box-shadow:0 6px 14px rgba(0,0,0,.25)}
+    #gc-shop .count{font-size:13px;color:#4a3a00;margin:0 0 10px 4px;font-weight:600}
+    #gc-shop .list{background:var(--ink);border-radius:16px;padding:8px}
+    #gc-shop .row{display:flex;align-items:center;gap:12px;padding:13px 12px;border-bottom:1px solid #2a2418;color:#fff}
+    #gc-shop .row:last-child{border-bottom:0}
+    #gc-shop .num{font-variant-numeric:tabular-nums;font-weight:700;font-size:14px;color:var(--gold);min-width:58px}
+    #gc-shop .name{flex:1;font-size:15px;font-weight:500}
+    #gc-shop .price{font-weight:700;font-size:15px;color:var(--gold-l);white-space:nowrap}
+    #gc-shop .summary{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid #3a3220;padding-bottom:14px;margin-bottom:14px}
+    #gc-shop .big{font-family:"Playfair Display",Georgia,serif;font-size:28px;font-weight:800;color:var(--gold-l)}
+    #gc-shop .qrbox{background:#fff;border-radius:14px;padding:10px;width:fit-content;margin:6px auto 10px}
+    #gc-shop .qrbox img{display:block}
+    #gc-shop .netline{text-align:center;font-size:13px;color:#cdbf8a;margin-bottom:10px}
+    #gc-shop .addr code{display:block;word-break:break-all;background:#241e10;border:1px dashed var(--gold);border-radius:10px;padding:12px;font-size:14px;font-weight:600;color:#fff;cursor:pointer;text-align:center}
+    #gc-shop .addr code.flash{background:#3a3010;border-style:solid}
+    #gc-shop .copybig{width:100%;margin-top:10px;padding:14px;font-size:15px}
+    #gc-shop .copybig.done{background:#2e7d32;color:#fff}
+    #gc-shop .note{font-size:13px;color:#ffcf6b;margin:10px 0 0}
+    #gc-shop .ok{width:58px;height:58px;border-radius:50%;background:var(--gold);color:var(--ink);font-size:32px;font-weight:800;line-height:58px;margin:4px auto 12px}
+    #gc-shop .orderid{font-weight:800;letter-spacing:.5px;color:var(--gold-l)}
+    #gc-shop .seg{display:flex;gap:6px;background:#241e10;border-radius:12px;padding:4px}
+    #gc-shop .seg button{flex:1;border:0;background:transparent;color:#cdbf8a;padding:10px 6px;border-radius:999px;font-weight:700;font-size:14px;cursor:pointer}
+    #gc-shop .seg button.on{background:linear-gradient(180deg,var(--gold-l),var(--gold));color:var(--ink)}
+    #gc-loader{position:fixed;top:0;left:0;right:0;bottom:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(16,12,4,.92);opacity:0;pointer-events:none;transition:opacity .2s}
+    #gc-loader.on{opacity:1;pointer-events:all}
+    #gc-loader .ring{width:86px;height:86px;border-radius:50%;border:4px solid #3a3220;border-top-color:#ffd54a;border-right-color:#f5b400;animation:gcspin 1s linear infinite}
+    #gc-loader .ring-wrap{position:relative;width:86px;height:86px}
+    #gc-loader .ring-wrap b{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",Georgia,serif;font-size:34px;color:#ffd54a}
+    #gc-loader .lt{margin:22px 0 14px;color:#f1e7c4;font-weight:600;font-size:15px;letter-spacing:.3px}
+    #gc-loader .bar{width:180px;height:4px;border-radius:4px;background:#3a3220;overflow:hidden}
+    #gc-loader .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#f5b400,#ffd54a);border-radius:4px}
+    #gc-loader.on .bar i{animation:gcfill var(--ld,1s) ease-in-out forwards}
+    @keyframes gcspin{to{transform:rotate(360deg)}}
+    @keyframes gcfill{to{width:100%}}
+    @media (prefers-reduced-motion:reduce){#gc-loader .ring{animation-duration:3s}}
+  </style>
+
+  <div class="gc-wrap">
+    <!-- View 1: Direct Cards List View -->
+    <div id="v-list">
+      <div class="brand">
+        <h2 id="s-brand">CardsHub</h2>
+        <p>Choose Google Play or Amazon, pick your card, and pay with USDT (TRC20).</p>
+      </div>
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <p class="count" id="count"></p>
+      <div class="list" id="rows"></div>
+    </div>
+
+    <!-- View 2: Payment View -->
+    <div id="v-pay" class="box hidden">
+      <div class="summary">
+        <div>
+          <div id="p-name" style="font-weight:700;font-size:17px"></div>
+          <div class="muted" id="p-num"></div>
+        </div>
+        <div class="big" id="p-price"></div>
+      </div>
+      <label>Send payment to this USDT (TRC20) address</label>
+      <div class="qrbox"><img id="qr" alt="Payment QR code" width="170" height="170"></div>
+      <div class="netline">Network: <b>TRON (TRC20)</b> | Coin: <b>USDT</b></div>
+      <div class="addr"><code id="addr" role="button" tabindex="0" title="Tap to copy"></code></div>
+      <button class="buy copybig" id="copy" type="button">Copy address</button>
+      <p class="note" id="amt-note"></p>
+      <p class="note">Use the <b>TRC20</b> network only. Funds sent on any other network cannot be recovered.</p>
+      <label for="txid">Transaction ID (TXID)</label>
+      <input type="text" id="txid" placeholder="Paste your transaction ID after paying" autocomplete="off">
+      <p class="err" id="err"></p>
+      <div class="actions">
+        <button class="ghost" id="back" type="button">Back</button>
+        <button class="buy" id="confirm" type="button">Buy</button>
+      </div>
+    </div>
+
+    <!-- View 3: Order Completion & Delivery Details View -->
+    <div id="v-done" class="box hidden">
+      <div class="center">
+        <div class="ok" id="ok-mark">✓</div>
+        <h2>Order submitted</h2>
+        <p>Order ID: <span class="orderid" id="d-id"></span></p>
+        <p class="muted hidden" id="d-test">Test mode: this is a test order.</p>
+      </div>
+      <div id="deliver">
+        <p class="muted center" style="margin-top:10px">Your transaction will be verified. Tell us where to send your card.</p>
+        <label>Send my card to</label>
+        <div class="seg" id="seg">
+          <button type="button" class="on" data-m="Email">Email</button>
+          <button type="button" data-m="WhatsApp">WhatsApp</button>
+          <button type="button" data-m="Telegram">Telegram</button>
+        </div>
+        <label for="dv" id="dv-label">Your email address</label>
+        <input type="text" id="dv" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="name@example.com">
+        <p class="err" id="dv-err"></p>
+        <div class="actions">
+          <button class="buy" id="dv-go" type="button">Submit</button>
+        </div>
+      </div>
+      <div id="sent" class="hidden center">
+        <h2 style="margin-top:14px">Details received</h2>
+        <p class="muted" id="sent-line"></p>
+        <p class="muted">Tap the button below to send your order to our team. Your card is delivered after your payment is confirmed.</p>
+        <div class="actions">
+          <a class="buy" id="wa" target="_blank" rel="noopener">Send order on WhatsApp</a>
+        </div>
+        <div class="actions">
+          <button class="ghost" id="again" type="button">Place another order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loader overlay -->
+  <div id="gc-loader" aria-live="polite" role="status">
+    <div class="ring-wrap">
+      <div class="ring"></div>
+      <b id="ld-mark">C</b>
+    </div>
+    <div class="lt" id="ld-text">Loading</div>
+    <div class="bar"><i></i></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var BRAND="CardsHub";
+  var WALLET="TWEGeCn4YNC4Pjn3W7sxHdov9cbMCDJyUV";
+  var CONTACT="923001234567";
+  var CURRENCY="USDT";
+  var TEST_MODE=true;
+  var TEST_TXID="d52733acb93006ea7245f2b4754504a43d98310286335a0f0ba6ce2b65908bb3";
+  var CARDS={
+    "Google Play":{min:44000,max:44999,markup:0,cards:{10:12,13:8,15:10,20:6,25:3,30:5,40:2,50:4}},
+    "Amazon":{min:50000,max:59999,markup:0,cards:{10:14,13:9,15:11,20:7,25:4,30:6,40:3,50:6}}
+  };
+  var AMP=String.fromCharCode(38);
+  var NL=String.fromCharCode(10);
+  
+  function $(id){return document.getElementById(id);}
+  var views=["v-list","v-pay","v-done"];
+  var order=null,method="Email",current=null,busy=false,active=Object.keys(CARDS)[0];
+
+  try{
+    var lk=document.createElement("link");
+    lk.rel="stylesheet";
+    lk.href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800"+AMP+"family=Inter:wght@400;500;600;700"+AMP+"display=swap";
+    document.head.appendChild(lk);
+  }catch(e){}
+
+  $("s-brand").textContent=BRAND;
+  $("ld-mark").textContent=BRAND.charAt(0).toUpperCase();
+  $("ok-mark").textContent="\u2713";
+
+  function show(id){
+    views.forEach(function(v){$(v).classList.toggle("hidden",v!==id);});
+    $("gc-shop").scrollTo({top:0});
+  }
+
+  function withLoader(ms,label,cb){
+    if(busy){return;}
+    busy=true;
+    var L=$("gc-loader");
+    $("ld-text").textContent=label||"Loading";
+    L.style.setProperty("--ld",ms+"ms");
+    L.classList.remove("on");
+    void L.offsetWidth;
+    L.classList.add("on");
+    setTimeout(function(){
+      cb();
+      L.classList.remove("on");
+      busy=false;
+    },ms);
+  }
+
+  function money(n){return n.toFixed(2).replace(/\.00$/,"")+" "+CURRENCY;}
+  function hash(str,base){
+    var h=base;
+    for(var i=0;i!==str.length;i++){h=(h*31+str.charCodeAt(i))%1000000007;}
+    return h;
+  }
+  function seeded(seed){
+    var s=seed%2147483646+1;
+    return function(){s=(s*16807)%2147483647;return (s-1)/2147483646;};
+  }
+
+  function items(cat){
+    var c=CARDS[cat],faces=[];
+    Object.keys(c.cards).forEach(function(v){
+      for(var i=0;i!==c.cards[v];i++){faces.push(Number(v));}
+    });
+    if(!faces.length){return [];}
+    var rnd=seeded(hash(cat,99));
+    for(var j=faces.length-1;j!==0;j--){
+      var r=Math.floor(rnd()*(j+1)),t=faces[j];
+      faces[j]=faces[r];
+      faces[r]=t;
+    }
+    return faces.map(function(face){
+      var price=Math.round(face*(1+c.markup/100)*100)/100;
+      return {name:cat+" Gift Card $"+face,price:price};
+    });
+  }
+
+  function mixedNumbers(cat,n){
+    var c=CARDS[cat],rnd=seeded(hash(cat,7)+7),used={},out=[];
+    while(out.length!==n){
+      var v=c.min+Math.floor(rnd()*(c.max-c.min+1));
+      if(!used[v]){used[v]=1;out.push(v);}
+    }
+    return out;
+  }
+
+  function renderTabs(){
+    var t=$("tabs");
+    t.innerHTML="";
+    Object.keys(CARDS).forEach(function(k){
+      var b=document.createElement("button");
+      b.className="tab";
+      b.type="button";
+      b.setAttribute("role","tab");
+      b.setAttribute("aria-selected",k===active);
+      b.textContent=k;
+      b.onclick=function(){
+        if(k===active){return;}
+        if(busy){return;}
+        withLoader(900,"Loading "+k,function(){active=k;renderTabs();renderRows();});
+      };
+      t.appendChild(b);
+    });
+  }
+
+  function renderRows(){
+    var box=$("rows");
+    box.innerHTML="";
+    var list=items(active),nums=mixedNumbers(active,list.length);
+    $("count").textContent=list.length+" cards available";
+    list.forEach(function(it,i){
+      var num=nums[i];
+      var r=document.createElement("div");
+      r.className="row";
+      var a=document.createElement("span");a.className="num";a.textContent=num;
+      var b=document.createElement("span");b.className="name";b.textContent=it.name;
+      var c=document.createElement("span");c.className="price";c.textContent=money(it.price);
+      var btn=document.createElement("button");
+      btn.className="buy";btn.type="button";btn.textContent="Buy";
+      btn.onclick=function(){startOrder({num:num,name:it.name,price:it.price});};
+      r.appendChild(a);r.appendChild(b);r.appendChild(c);r.appendChild(btn);
+      box.appendChild(r);
+    });
+  }
+
+  function startOrder(item){
+    current=item;
+    withLoader(1800,"Preparing your order",function(){
+      $("p-name").textContent=item.name;
+      $("p-num").textContent="List #"+item.num;
+      $("p-price").textContent=money(item.price);
+      $("addr").textContent=WALLET;
+      var q=$("qr");
+      q.style.display="block";
+      q.onerror=function(){q.style.display="none";};
+      q.src="https://api.qrserver.com/v1/create-qr-code/?size=170x170"+AMP+"margin=0"+AMP+"data="+encodeURIComponent(WALLET);
+      $("amt-note").textContent="Send exactly "+money(item.price)+" so your payment can be matched.";
+      $("txid").value="";
+      $("err").textContent="";
+      show("v-pay");
+    });
+  }
+
+  function copyText(text){
+    return new Promise(function(resolve){
+      function legacy(){
+        try{
+          var ta=document.createElement("textarea");
+          ta.value=text;
+          ta.setAttribute("readonly","");
+          ta.style.cssText="position:fixed;top:0;left:0;opacity:0;font-size:16px";
+          $("gc-shop").appendChild(ta);
+          ta.focus();
+          ta.select();
+          ta.setSelectionRange(0,text.length);
+          var ok=document.execCommand("copy");
+          $("gc-shop").removeChild(ta);
+          resolve(ok);
+        }catch(e){resolve(false);}
+      }
+      var modern=false;
+      if(navigator.clipboard){if(window.isSecureContext){modern=true;}}
+      if(modern){navigator.clipboard.writeText(text).then(function(){resolve(true);},legacy);}
+      else{legacy();}
+    });
+  }
+
+  function doCopy(){
+    var b=$("copy"),c=$("addr");
+    copyText(WALLET).then(function(ok){
+      if(ok){
+        b.textContent="Copied \u2713";
+        b.classList.add("done");
+        c.classList.add("flash");
+        setTimeout(function(){b.textContent="Copy address";b.classList.remove("done");c.classList.remove("flash");},2000);
+      }else{
+        b.textContent="Press and hold the address to copy";
+        setTimeout(function(){b.textContent="Copy address";},3000);
+      }
+    });
+  }
+
+  $("copy").onclick=doCopy;
+  $("addr").onclick=doCopy;
+  $("addr").addEventListener("keydown",function(e){
+    if(e.key==="Enter"||e.key===" "){e.preventDefault();doCopy();}
+  });
+
+  $("back").onclick=function(){withLoader(800,"Please wait",function(){show("v-list");});};
+
+  $("confirm").onclick=function(){
+    var tx=$("txid").value.trim();
+    withLoader(1800,"Submitting order",function(){
+      if(!/^[A-Fa-f0-9]{64}$/.test(tx)){
+        $("err").textContent="Invalid transaction ID. A TRC20 TXID is 64 characters (0-9, a-f).";
+        return;
+      }
+      if(TEST_MODE){
+        if(tx.toLowerCase()!==TEST_TXID.toLowerCase()){
+          $("err").textContent="Transaction not found. Please check the ID and try again.";
+          return;
+        }
+      }
+      var id="GC"+Date.now().toString(36).toUpperCase();
+      $("d-id").textContent=id;
+      $("d-test").classList.toggle("hidden",!TEST_MODE);
+      order={id:id,tx:tx};
+      resetDeliver();
+      show("v-done");
+    });
+  };
+
+  var HINTS={
+    "Email":{label:"Your email address",ph:"name@example.com"},
+    "WhatsApp":{label:"Your WhatsApp number",ph:"With country code, e.g. 923001234567"},
+    "Telegram":{label:"Your Telegram username",ph:"@username"}
+  };
+
+  function setMethod(m){
+    method=m;
+    Array.prototype.forEach.call($("seg").children,function(b){
+      b.classList.toggle("on",b.getAttribute("data-m")===m);
+    });
+    var h=HINTS[m]||HINTS["Email"];
+    $("dv-label").textContent=h.label;
+    $("dv").placeholder=h.ph;
+  }
+
+  Array.prototype.forEach.call($("seg").children,function(b){
+    b.onclick=function(){setMethod(this.getAttribute("data-m"));};
+  });
+
+  function resetDeliver(){
+    $("deliver").classList.remove("hidden");
+    $("sent").classList.add("hidden");
+    $("dv").value="";
+    $("dv-err").textContent="";
+    setMethod("Email");
+  }
+
+  $("dv-go").onclick=function(){
+    var val=$("dv").value.trim();
+    if(!val){
+      $("dv-err").textContent="Please enter your delivery details.";
+      return;
+    }
+    $("dv-err").textContent="";
+    withLoader(1200,"Saving details",function(){
+      $("deliver").classList.add("hidden");
+      $("sent").classList.remove("hidden");
+      $("sent-line").textContent="Deliver via "+method+": "+val;
+      
+      var msg="Hello! I placed an order on "+BRAND+NL+NL+
+              "Order ID: "+order.id+NL+
+              "Item: "+current.name+NL+
+              "List #: "+current.num+NL+
+              "Price: "+money(current.price)+NL+
+              "TXID: "+order.tx+NL+
+              "Deliver to ("+method+"): "+val;
+              
+      $("wa").href="https://wa.me/"+CONTACT+"?text="+encodeURIComponent(msg);
+    });
+  };
+
+  $("again").onclick=function(){
+    withLoader(800,"Loading store",function(){
+      show("v-list");
+    });
+  };
+
+  // Initial setup: Load tabs and render store list directly
+  renderTabs();
+  renderRows();
+  show("
